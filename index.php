@@ -2,73 +2,37 @@
 <html>
 	<head>
 		<title>Velocimeter - Connection Speed Test</title>
-		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 		<style>
 			html, body { width:100% height:100%; }
 			body { background:black; }
 			#wrapper { margin:auto; width:800px; background: white; padding:15px 20px; border-radius: 10px }
-			#begin { margin-bottom:10px; }
-			.hidden { display:none; }
 		</style>
-		<script>
-			$(document).ready(function()
-			{
-				var progress = 0;
-				
-				function ping()
-				{
-					var loadTime = new Date().getTime();
-					$.get('ping.php', null, function()
-					{
-						now = new Date().getTime();
-						$('#ping').html(now - loadTime);
-					});
-				}
-				ping();
-				
-				$('#begin').click(function()
-				{
-					$("#progressbar").show().progressbar({ value: progress });
-					var interval = setInterval(function()
-					{
-						progress += 5;
-						$("#progressbar").show().progressbar({ value: progress });
-					},500);
-		
-					$(this).attr('disabled', 'disabled').val('working...');
-					$('#result').slideUp().html('');
-					testTime = new Date().getTime();
-		
-					$.get('stream.php', null, function(data)
-					{
-						clearTimeout(interval);
-						progress = 0;
-						$("#progressbar").hide();
-						$('#begin').removeAttr('disabled').val('Test again');
-						filesize = data.length/1024/1024;
-						time = (new Date().getTime() - testTime) / 1000;
-						$('#result').append('<li>In ' + time + ' seconds you have downloaded ' + filesize + ' MBytes</li>');
-						$('#result').append('<li>Speed: ' + filesize/time + ' MBps (Mega Bytes per second)</li>');
-						$('#result').append('<li>Or ' + (filesize * 8)/time + ' Mbps (Mega bits per second)</li>');
-						$('#result').slideDown();		
-						setTimeout(function(){ ping() },1000);
-					});
-				});
-
-				$('#begin').trigger('click');
-			});
-		</script>
 	</head>
 	<body>
-		<div id="wrapper">
-			<h1>Velocimeter</h1>
-			<p>Ping to this server: <span id="ping"></span> miliseconds</p>
-			<input type="button" id="begin" value="Begin test" />
-			<div class="hidden" id="progressbar"></div>
-			<ul id="result">
-			</ul>
+	<div id="wrapper">
+		<h1>Velocimeter</h1>
+		<p>Testing your connection...</p>
+<?php
+$kb=512;
+echo "\n";
+echo "<!--";
+flush();
+$time = explode(" ",microtime());
+$start = $time[0] + $time[1];
+//die(var_dump($start));
+//$start = date('u');
+for($x=0;$x<$kb;$x++){
+    echo str_pad('', 1024, '.');
+    flush();
+}
+$time = explode(" ",microtime());
+$finish = $time[0] + $time[1];
+//$finish = date('u');
+$deltat = $finish - $start;
+echo "-->\n";
+?>
+			<p>Test finished in <?php echo $deltat ?> seconds.</p>
+			<p>Your speed is <?php echo round($kb / $deltat, 3) ?> Kb/s</p>
 		</div>
 	</body>
 </html>
