@@ -16,10 +16,10 @@
 			$(document).ready(function()
 			{
 				var progress = 0;
-				var loadTime = new Date().getTime();
-
+				
 				function ping()
 				{
+					var loadTime = new Date().getTime();
 					$.get('ping.php', null, function()
 					{
 						now = new Date().getTime();
@@ -43,7 +43,6 @@
 		
 					$.get('stream.php', null, function(data)
 					{
-						ping();
 						clearTimeout(interval);
 						progress = 0;
 						$("#progressbar").hide();
@@ -54,6 +53,7 @@
 						$('#result').append('<li>Speed: ' + filesize/time + ' MBps (Mega Bytes per second)</li>');
 						$('#result').append('<li>Or ' + (filesize * 8)/time + ' Mbps (Mega bits per second)</li>');
 						$('#result').slideDown();		
+						setTimeout(function(){ ping() },1000);
 					});
 				});
 
