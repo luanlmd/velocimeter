@@ -1,3 +1,10 @@
+<?php
+// Prevent the dots from being compressed.
+ini_set('zlib.output_compression', 0);
+// No cache at all!
+Header('Cache-Control: no-cache');
+Header('Pragma: no-cache');
+?>
 <!DOCTYPE html> 
 <html>
 	<head>
@@ -14,22 +21,19 @@
 		<p>Testing your connection...</p>
 <?php
 $kb=512;
-echo "\n";
-echo "<!--";
+echo '<!--';
 flush();
 $time = explode(" ",microtime());
 $start = $time[0] + $time[1];
-//die(var_dump($start));
-//$start = date('u');
-for($x=0;$x<$kb;$x++){
+for($x=0;$x<$kb;$x++)
+{
     echo str_pad('', 1024, '.');
     flush();
 }
 $time = explode(" ",microtime());
 $finish = $time[0] + $time[1];
-//$finish = date('u');
 $deltat = $finish - $start;
-echo "-->\n";
+echo '-->';
 ?>
 			<p>Test finished in <?php echo $deltat ?> seconds.</p>
 			<p>Your speed is <?php echo round($kb / $deltat, 3) ?> Kb/s</p>
