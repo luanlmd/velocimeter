@@ -1,6 +1,4 @@
 <?php
-// Prevent the dots from being compressed.
-ini_set('zlib.output_compression', 0);
 // No cache at all!
 Header('Cache-Control: no-cache');
 Header('Pragma: no-cache');
