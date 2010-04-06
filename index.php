@@ -23,7 +23,7 @@
 					$.get('ping.php', null, function()
 					{
 						now = new Date().getTime();
-						$('#ping').append(now - loadTime);
+						$('#ping').html(now - loadTime);
 					});
 				}
 				ping();
