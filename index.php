@@ -18,8 +18,8 @@ Header('Pragma: no-cache');
 		<h1>Velocimeter</h1>
 		<p>Testing your connection...</p>
 <?php
-flush();
 echo '<!-';
+flush();
 $start = microtime(true);
 $bytes = 0;
 while(true)
@@ -33,8 +33,7 @@ $finish = microtime(true);
 $duration = $finish - $start;
 echo '->';
 ?>
-			<!--p>Test finished in <?php echo round($deltat,3) ?> seconds.</p>
-			<p>Downloaded <?php echo $bytes ?> bytes.</p-->
+			<p>Downloaded <?php echo $bytes ?> bytes in <?php echo round($duration,3) ?> seconds.</p>
 			<p>Your speed is <?php echo round(($bytes/1024) / $duration, 3) ?> Kb/s</p>
 		</div>
 	</body>
