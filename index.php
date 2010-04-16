@@ -36,5 +36,14 @@ echo '->';
 			<p>Downloaded <?php echo $bytes ?> bytes in <?php echo round($duration,3) ?> seconds.</p>
 			<p>Your speed is <?php echo round(($bytes/1024) / $duration, 3) ?> Kb/s</p>
 		</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-683660-14");
+pageTracker._trackPageview();
+} catch(err) {}</script>
 	</body>
 </html>
