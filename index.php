@@ -31,10 +31,13 @@ while(true)
 }
 $finish = microtime(true);
 $duration = $finish - $start;
+$inkb = round(($bytes/1024) / $duration, 3);
+$inmb = round(($bytes/1024/1024) / $duration, 3);
+$inMB = round(($bytes/1024/1024/8) / $duration, 3);
 echo '->';
 ?>
 			<p>Downloaded <?php echo $bytes ?> bytes in <?php echo round($duration,3) ?> seconds.</p>
-			<p>Your speed is <?php echo round(($bytes/1024) / $duration, 3) ?> Kb/s</p>
+			<p>Your speed is: <b><?= $inMB ?> MB</b>/s or <b><?= $inmb ?> Mb</b>/s or <b><?= $inkb ?> Kb</b>/s</p>
 		</div>
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
